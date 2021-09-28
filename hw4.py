@@ -1,5 +1,6 @@
 
 import unittest
+import random
 
 # The Customer class
 # The Customer class represents a customer who will order from the stalls.
@@ -8,6 +9,8 @@ class Customer:
     def __init__(self, name, wallet = 100):
         self.name = name
         self.wallet = wallet
+        self.customerNum = 9
+        
 
     # Reload some deposit into the customer's wallet.
     def reload_money(self,deposit):
@@ -15,6 +18,7 @@ class Customer:
 
     # The customer orders the food and there could be different cases   
     def validate_order(self, cashier, stall, item_name, quantity):
+
         if not(cashier.has_stall(stall)):
             print("Sorry, we don't have that vendor stall. Please try a different one.")
         elif not(stall.has_item(item_name, quantity)):  
@@ -22,8 +26,15 @@ class Customer:
         elif self.wallet < stall.compute_cost(quantity): 
             print("Don't have enough money for that :( Please reload more money!")
         else:
+            self.customerNum += 1
+            if self.customerNum == 10:
+                if random.random() < .05:
+                    self.reload_money(10)
+                    print("Congrats you won $10")
             bill = cashier.place_order(stall, item_name, quantity) 
             self.submit_order(cashier, stall, bill) 
+            
+
     
     # Submit_order takes a cashier, a stall and an amount as parameters, 
     # it deducts the amount from the customer’s wallet and calls the receive_payment method on the cashier object
