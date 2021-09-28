@@ -216,19 +216,29 @@ class TestAllMethods(unittest.TestCase):
     
 ### Write main function
 def main():
+    i1 = {'burger': 30, "hot dog" : 20}
+    i2 = {'ice cream' : 40, 'smoothie' :  30}
+    c1 =  Customer('Ismael', 100)
+    c2 =  Customer('Raquel', 500)
+    c3 = Customer('Jeff', 50)
+    t1 = Stall('''Bob's Burgers''', i1, cost = 11)
+    t2 = Stall('Ice Cream Royale', i2, cost = 7)
+    s1 =  Cashier('Henry', directory = [t1])
+    s2 =  Cashier('Cole', directory = [t2])
+    
     #Create different objects 
 
     #Try all cases in the validate_order function
     #Below you need to have *each customer instance* try the four cases
     #case 1: the cashier does not have the stall 
-    
+    c1.validate_order(s1, t2, 'burger', 2)
     #case 2: the casher has the stall, but not enough ordered food or the ordered food item
-    
+    c2.validate_order(s1, t1, 'hot dog', 30)
     #case 3: the customer does not have enough money to pay for the order: 
-    
+    c3.validate_order(s1, t1, 'burger', 20)
     #case 4: the customer successfully places an order
-
-    pass
+    c1.validate_order(s1, t1, 'burger', 2)
+    
 
 if __name__ == "__main__":
 	main()
